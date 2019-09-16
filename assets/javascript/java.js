@@ -11,23 +11,25 @@ var api_key = "lYDMPf6QY9UggTQK6AoI5J6nt6PrRcQQ";
 // userInput = 
 
 //Create an array based on a specific topic
-var topics = ["Atlanta Braves", "Washington Nationals", "New York Mets", "Philadelphia Phillies", "Miami Marlins"];
+var teams = ["Atlanta Braves", "Washington Nationals", "New York Mets", "Philadelphia Phillies", "Miami Marlins"];
+
 
 
 //Create a loop that will go through the array and create buttons on the buttons div. I confirmed that the loop is working. 
-for (i = 0; i < topics.length; i++) {
+for (i = 0; i < teams.length; i++) {
 
     //Create a variable to hold the values of the array individually.  Notice the array is called Topics because it is hold multiple values and the variable is called topic because we will pull one value from the array via loop. 
-    topic = topics[i];
+    team = teams[i];
 
     //Instructions on creating a button for each value on the array. 
-    $("#buttons-row").append("<button data-team = '" + topic + "' > " + topic + " </button>");
-    console.log("<button data-team = '" + topic + "' > " + topic + " </button>");
+    $("#buttons-row").append("<button data-team = '" + team + "' > " + team + " </button>");
+    console.log("<button data-team = '" + team + "' > " + team + " </button>");
 }
 
 $("button").on("click", function() {
     var team = $(this).attr("data-team");
     var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=" + api_key + "&q=" + team + "&limit=10&offset=0&rating=G&lang=en";
+    console.log(queryURL);
 
     $.ajax({
       url: queryURL,
@@ -35,6 +37,7 @@ $("button").on("click", function() {
     })
       .then(function(response) {
         var results = response.data;
+        console.log(response);
 
         for (var i = 0; i < results.length; i++) {
           var gifDiv = $("<div>"); //creates a div for the gif results
