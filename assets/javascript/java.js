@@ -2,7 +2,7 @@
 console.log("This java file is linked");
 
 //BEGIN DOCUMENT READY!!!!!
-$(document).ready(function() {
+// $(document).ready(function() {
 
 //Create a var for API key
 var api_key = "lYDMPf6QY9UggTQK6AoI5J6nt6PrRcQQ";
@@ -14,17 +14,56 @@ var api_key = "lYDMPf6QY9UggTQK6AoI5J6nt6PrRcQQ";
 var teams = ["Atlanta Braves", "Washington Nationals", "New York Mets", "Philadelphia Phillies", "Miami Marlins"];
 
 
+//FUNCTION FOR DISPLAYING BUTTONS
+function renderbuttons() {
 
-//Create a loop that will go through the array and create buttons on the buttons div. I confirmed that the loop is working. 
-for (i = 0; i < teams.length; i++) {
+  //Deleting the movie buttons prior to adding new movie buttons
+  $("#buttons-row").empty();
 
-    //Create a variable to hold the values of the array individually.  Notice the array is called Topics because it is hold multiple values and the variable is called topic because we will pull one value from the array via loop. 
-    team = teams[i];
+  //loop through the array of movies
+  for (var i = 0; i < teams.length; i++) {
 
-    //Instructions on creating a button for each value on the array. 
-    $("#buttons-row").append("<button data-team = '" + team + "' > " + team + " </button>");
-    console.log("<button data-team = '" + team + "' > " + team + " </button>");
+    //call a variable that will create a button
+    var a = $("<button>");
+
+    //Add a class
+    a.addClass("team");
+
+    //Adding a data-attribute with a value of the team at index i
+    a.attr("data-team", teams[i]);
+
+    //Providing the buttons'text with a a value of the team at index i
+    a.text(teams[i]);
+    
+    //Add button to html
+    $("#buttons-row").append(a);
+  }
+
 }
+
+//Create a function for the team button click
+$("#add-team").on("click", function(event) {
+  
+  //prevent form from trying to submit itself
+  event.preventDefault();
+  
+  //Empty team input box
+  $("#team-input").empty();
+
+  //Grab the text from the input box
+  var team = $("#team-input").val().trim();
+
+  //Push the team input to the array
+  teams.push(team);
+
+  //call the render function the render the teams in the array
+  renderbuttons();
+  
+})
+
+//Call the renderbuttons function to list the original array.
+renderbuttons();
+
 
 $("button").on("click", function() {
     var team = $(this).attr("data-team");
@@ -58,4 +97,4 @@ $("button").on("click", function() {
   });
 
 
-}); //END OF DOCUMENT READY!!!!
+// }); //END OF DOCUMENT READY!!!!
