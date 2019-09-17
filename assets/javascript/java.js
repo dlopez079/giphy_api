@@ -22,9 +22,11 @@ function displayGifs() {
     })
       .then(function (response) {
         var results = response.data;
+  console.log(response);
 
         for (var i = 0; i < results.length; i++) {
           var gifDiv = $("<div>"); //creates a div for the gif results
+          gifDiv.addClass("col");
 
           var rating = results[i].rating; //setting a variable for ratings
 
@@ -58,9 +60,11 @@ function renderbuttons() {
 
     //Add a class
     a.addClass("team");
+    a.addClass("btn btn-primary btn-lg btn-block");
 
     //Adding a data-attribute with a value of the team at index i
     a.attr("data-team", teams[i]);
+
 
     //Providing the buttons'text with a a value of the team at index i
     a.text(teams[i]);
@@ -91,6 +95,7 @@ $("#add-team").on("click", function (event) {
 
 }) //END FUNCTION TO ADD TEAM BUTTON************************************
 
+// buttonClass = (".btn btn-primary btn-lg btn-block");
 $(document).on("click", ".team", displayGifs);
 
 
